@@ -1,8 +1,8 @@
 #!/bin/bash
-echo "Do you want to Install fcitx with sogoupinyin thesaurus[Y/n]?"
+echo -n "Do you want to Install fcitx-sogoupinyin?[Y/n]?"
 read ans
-case "&ans" in  n*|N*)
-    echo "Installation aborted.Exiting..."
+case "$ans" in  n*|N*)
+    echo  "Installation aborted.Exiting..."
     exit 0;
 esac     
 echo "Setting up repository"
