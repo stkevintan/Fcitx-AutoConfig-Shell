@@ -5,35 +5,34 @@ case "$ans" in  n*|N*)
     echo "Installation aborted.Exiting..."
     exit 0;
 esac     
-echo ""
+
 echo "Setting up repository..."
 sudo add-apt-repository ppa:fcitx-team/nightly -y
 sudo apt-get update
 
-echo ""
 echo "Installing fcitx..."
 sudo apt-get install fcitx fcitx-sogoupinyin fcitx-config-gtk fcitx-frontend-all fcitx-module-cloudpinyin fcitx-ui-classic -y
 
-echo ""
-echo "Installing sogou-skin..."
-sudo chmod -R 755 sogou/ 
-sudo cp -r sogou/ /usr/share/fcitx/skin/
-sed -i "s/.*SkinType.*/SkinType=sogou/g" ~/.config/fcitx/conf/fcitx-classic-ui.config
 
-echo ""
 echo "Uninstalling ibus..."
 sudo apt-get purge ibus -y
 
-echo ""
+echo "Installing sogou-skin..."
+sudo chmod -R 755 sogou/ 
+sudo cp -r sogou/ /usr/share/fcitx/skin/
+
+if [ -e ~/.config/fcitx ]; then
+	sed -i "s/.*SkinType.*/SkinType=sogou/g" ~/.config/fcitx/conf/fcitx-classic-ui.config
+else
+	mkdir ~/.config/fcitx
+	cp config ~/.config/fcitx/
+	mkdir ~/.config/fcitx/conf
+	cp fcitx-classic-ui.config ~/.config/fcitx/conf/
+fi
+
 echo "How many candidate words do you want?"
 echo -n "Please enter a integer range between [1~9]:"
 read num
 sed -i "s/.*CandidateWordNumber.*/CandidateWordNumber=$num/g"  ~/.config/fcitx/config
 
-
-
-
-
-
-
-
+echo -n "Install Completed...Press [ENTER] to continue..."&&read w
