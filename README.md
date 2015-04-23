@@ -1,1 +1,3 @@
-this is a simple shell to install and config fcitx-sogou
+ # the shell is obsolete , need updating!
+ 
+ A simple shell to help fresh user to install and config fcitx the Chinese input method in LinuxMint.
